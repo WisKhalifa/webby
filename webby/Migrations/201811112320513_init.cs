@@ -3,16 +3,16 @@ namespace webby.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class init9 : DbMigration
+    public partial class init : DbMigration
     {
         public override void Up()
         {
-            AddColumn("dbo.AspNetUsers", "Name", c => c.String(nullable: false));
+            AlterColumn("dbo.AspNetUsers", "Name", c => c.String());
         }
         
         public override void Down()
         {
-            DropColumn("dbo.AspNetUsers", "Name");
+            AlterColumn("dbo.AspNetUsers", "Name", c => c.String(nullable: false));
         }
     }
 }
