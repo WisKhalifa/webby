@@ -18,7 +18,7 @@ namespace webby.Models
         public int CommentId { get; private set; }
         [Required]
         public string Text { get; set; }
-        [Required]
+        
         public DateTime Date { get; set; }
         
         public int AuthorId { get; set; }
