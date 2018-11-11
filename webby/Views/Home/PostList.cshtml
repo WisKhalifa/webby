@@ -1,0 +1,21 @@
+﻿@model webby.Models.PostListViewModels
+@{
+    ViewBag.Title = "PostList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>PostList</h2>
+
+<head>
+    <title>Your Posts</title>
+</head>
+<body>
+    <div>
+        <ul>
+            @foreach (webby.Models.PostModels post in Model.Posts)
+            {
+                <li> @post.PostId @post.PostTime @post.Title @post.PostContent</li>
+            }
+        </ul>
+    </div>
+</body>
