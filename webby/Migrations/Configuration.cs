@@ -19,50 +19,22 @@ namespace webby.Migrations
         protected override void Seed(webby.Models.ApplicationDbContext context)
         {
 
+
             if (!context.Users.Any())
             {
 
                 var userStore = new UserStore<ApplicationUser>(context);
                 var userManager = new UserManager<ApplicationUser>(userStore);
-
                 var adminEmail = "admin@admin.com";
                 var adminName = "Admin";
                 var adminPassword = "Admin123!";
                 string adminRole = "Administrator";
-                //CreateAdminUser(context, adminEmail, adminName, adminPassword, adminRole);
-                CreateSeveralPosts(context);
-
-
-
-                //Create Admin User
-                var adminUser = new ApplicationUser
-                {
-                    Name = adminName,
-                    Email = adminEmail
-                };
-                var userCreateResult = userManager.Create(adminUser, adminPassword);
-                if (!userCreateResult.Succeeded)
-                {
-                    throw new Exception(string.Join(";", userCreateResult.Errors));
-                }
-
-
                 var user1Email = "user1@user.com";
-                var user1Name = "User 1";
+                var user1Name = "User1";
                 var user2Email = "user2@user.com";
-                var user2Name = "User 2";
+                var user2Name = "User2";
                 var userPass = "Test123!";
-                CreateUser(context, user1Email, user1Name, userPass);
-                CreateUser(context, user2Email, user2Name, userPass);
-                void CreateUser(ApplicationDbContext contxt, string usrEmail, string usrName, string usrPass)
-                {
-                    var genUser = new ApplicationUser
-                    {
-                        Name = usrName,
-                        Email = usrEmail
-                    };
-                    userManager.Create(genUser, usrPass);
-                }
+                
 
 
                 //Create Admin Role
@@ -73,12 +45,50 @@ namespace webby.Migrations
                     throw new Exception(string.Join(";", roleCreateResult.Errors));
                 }
 
-                //Add Admin Role to Admin User
-                var addAdminRoleResult = userManager.AddToRole(adminUser.Id, adminRole);
-                if (!addAdminRoleResult.Succeeded)
+
+                CreateUser(context, user1Email, user1Name, userPass);
+                CreateUser(context, user2Email, user2Name, userPass);
+                CreateAdminUser(context, adminEmail, adminName, adminPassword, adminRole);
+                CreateSeveralPosts(context);
+
+
+                void CreateAdminUser(ApplicationDbContext contxt, string admnEmail, string admnName, string admnPass, string admnRole)
                 {
-                    throw new Exception(string.Join(";", addAdminRoleResult.Errors));
+                    //Create Admin User
+                    var adminUser = new ApplicationUser
+                    {
+                        Name = adminName,
+                        Email = adminEmail
+                    };
+                    adminUser.UserName = adminEmail;
+                    adminUser.EmailConfirmed = true;
+                    userManager.Create(adminUser, adminPassword);
+                    context.SaveChanges();
+
+                    //Add Admin Role to Admin User
+                    var addAdminRoleResult = userManager.AddToRole(adminUser.Id, adminRole);
+                    if (!addAdminRoleResult.Succeeded)
+                    {
+                        throw new Exception(string.Join(";", addAdminRoleResult.Errors));
+                    }
+
                 }
+                
+                //Add Users
+                void CreateUser(ApplicationDbContext contxt, string usrEmail, string usrName, string usrPass)
+                {
+                    var genUser = new ApplicationUser
+                    {
+                        Name = usrName,
+                        Email = usrEmail
+                        
+                    };
+                    genUser.UserName = usrEmail;
+                    genUser.EmailConfirmed = true;
+                    userManager.Create(genUser, usrPass);
+                    context.SaveChanges();
+                }
+
 
                 //Method to Seed Database with Posts
                 void CreateSeveralPosts(ApplicationDbContext Context)

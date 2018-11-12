@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNet.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 using webby.Models;
 
@@ -20,8 +16,8 @@ namespace webby.Controllers
             return View();
         }
 
-       
-        
+
+
 
         /*public HomeController (PostContext _db)
         {
@@ -40,11 +36,11 @@ namespace webby.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create (PostModels post)
+        public ActionResult Create(PostModels post)
         {
             if (ModelState.IsValid)
             {
-                
+
                 db.PostModels.Add(post);
                 db.SaveChanges();
                 return RedirectToAction("PostList");

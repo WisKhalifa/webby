@@ -26,6 +26,12 @@ namespace webby.Models
         }
         
 
-        public DbSet<PostModels> PostsModels { get; set; }
+        
+
+
+
+
+
+
     }
 }

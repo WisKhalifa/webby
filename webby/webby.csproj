@@ -566,6 +566,10 @@
     <Compile Include="Migrations\201811112320513_init.Designer.cs">
       <DependentUpon>201811112320513_init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811121913277_SeedOnly.cs" />
+    <Compile Include="Migrations\201811121913277_SeedOnly.Designer.cs">
+      <DependentUpon>201811121913277_SeedOnly.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CommentModels.cs" />
@@ -665,6 +669,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201811112320513_init.resx">
       <DependentUpon>201811112320513_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811121913277_SeedOnly.resx">
+      <DependentUpon>201811121913277_SeedOnly.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

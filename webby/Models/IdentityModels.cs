@@ -37,6 +37,11 @@ namespace webby.Models
         }
         public DbSet<PostModels> PostModels { get; set; }
         public DbSet<CommentModels> Comments { get; set; }
+
+
+
+
+
     }
 
    
