@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using Microsoft.AspNet.Identity;
+using System.Linq;
 using System.Web.Mvc;
 using webby.Models;
 
@@ -17,16 +18,15 @@ namespace webby.Controllers
         }
 
 
-
-
-        /*public HomeController (PostContext _db)
-        {
-            db = _db;
-        }*/
-
-        //private PostContext db = new PostContext();
-
         private ApplicationDbContext db = new ApplicationDbContext();
+
+
+        public bool IsAdmin()
+        {
+            var currentUserId = this.User.Identity.GetUserId();
+            var isAdmin = (currentUserId != null && this.User.IsInRole("Administrator"));
+            return isAdmin;
+        }
 
         [HttpGet]
         public ActionResult Create()
@@ -36,6 +36,7 @@ namespace webby.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Create(PostModels post)
         {
             if (ModelState.IsValid)
@@ -57,6 +58,20 @@ namespace webby.Controllers
 
             return View(postListViewModel);
 
+        }
+
+        public ActionResult PostDetailsById(int id)
+        {
+            var currentUserId = this.User.Identity.GetUserId();
+            var isAdmin = this.IsAdmin();
+            var postDetails = this.db.PostModels
+                .Where(e => e.AuthorId == id)
+                .Select(PostListViewModels.ViewModel)
+                .FirstOrDefault();
+
+            this.ViewBag.CanEdit = isAdmin;
+
+            return this.PartialView("_PostDetails", postDetails);
         }
 
 

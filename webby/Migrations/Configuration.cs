@@ -39,11 +39,8 @@ namespace webby.Migrations
 
                 //Create Admin Role
                 var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
-                var roleCreateResult = roleManager.Create(new IdentityRole(adminRole));
-                if (!roleCreateResult.Succeeded)
-                {
-                    throw new Exception(string.Join(";", roleCreateResult.Errors));
-                }
+                roleManager.Create(new IdentityRole(adminRole));
+                
 
 
                 CreateUser(context, user1Email, user1Name, userPass);
@@ -66,11 +63,8 @@ namespace webby.Migrations
                     context.SaveChanges();
 
                     //Add Admin Role to Admin User
-                    var addAdminRoleResult = userManager.AddToRole(adminUser.Id, adminRole);
-                    if (!addAdminRoleResult.Succeeded)
-                    {
-                        throw new Exception(string.Join(";", addAdminRoleResult.Errors));
-                    }
+                    userManager.AddToRole(adminUser.Id, adminRole);
+                    
 
                 }
                 

@@ -6,6 +6,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    
 
 </head>
 <body>
@@ -23,9 +24,21 @@
                 <ul class="nav navbar-nav">
                     @if (Request.IsAuthenticated)
                     {
-                        <li>@Html.ActionLink("My Posts", "PostList", "Home")</li>
-                        <li>@Html.ActionLink("Create Post", "Create", "Home")</li>
+                        if (HttpContext.Current.User.IsInRole("Administrator"))
+                        {
+                            <li>@Html.ActionLink("View Posts", "PostList", "Home")</li>
+                            <li>@Html.ActionLink("My Comments", "Create", "Home")</li>
+                            <li>@Html.ActionLink("Create Post", "Create", "Home")</li>
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink("View Posts", "PostList", "Home")</li>
+                            <li>@Html.ActionLink("My Comments", "PostList", "Home")</li>
+                            <li>@Html.ActionLink("Comment on a Post", "Create", "Home")</li>
+                        }
                     }
+
+
 
                 </ul>
                 @Html.Partial("_LoginPartial")

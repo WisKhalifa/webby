@@ -566,13 +566,14 @@
     <Compile Include="Migrations\201811112320513_init.Designer.cs">
       <DependentUpon>201811112320513_init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201811121913277_SeedOnly.cs" />
-    <Compile Include="Migrations\201811121913277_SeedOnly.Designer.cs">
-      <DependentUpon>201811121913277_SeedOnly.cs</DependentUpon>
+    <Compile Include="Migrations\201811121928551_SeedOnly.cs" />
+    <Compile Include="Migrations\201811121928551_SeedOnly.Designer.cs">
+      <DependentUpon>201811121928551_SeedOnly.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CommentModels.cs" />
+    <Compile Include="Models\CommentViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PostContext.cs" />
@@ -602,6 +603,8 @@
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -645,6 +648,7 @@
     <Content Include="Views\PostModels\Index.cshtml" />
     <Content Include="Views\Home\Create.cshtml" />
     <Content Include="Views\Home\PostList.cshtml" />
+    <Content Include="Views\Home\_PostDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -670,8 +674,8 @@
     <EmbeddedResource Include="Migrations\201811112320513_init.resx">
       <DependentUpon>201811112320513_init.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811121913277_SeedOnly.resx">
-      <DependentUpon>201811121913277_SeedOnly.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201811121928551_SeedOnly.resx">
+      <DependentUpon>201811121928551_SeedOnly.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
