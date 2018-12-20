@@ -15,28 +15,28 @@
 </head>
 <body>
     <div>
-        <ul>
+        
             @foreach (webby.Models.PostModels post in Model.Posts)
             {
-                
-                <li><div> @post.PostId @post.PostTime @post.Title @post.PostContent</div></li>
-                <li><div class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="post-box">
-                        <div id="post-details-@Model.AuthorId">
-                            @Ajax.ActionLink("View Details >", "_PostDetails", "Home",
-                           new { id = Model.AuthorId},
-                           new AjaxOptions
-                           {
-                               InsertionMode = InsertionMode.Replace,
-                               UpdateTargetId = "post-details-" + Model.AuthorId
-                           }, new { @class = "btn btn-default" })
-                        </div>
-                        </div>"
-                </div>
-            </li>
 
+                <div> @post.PostId @post.PostTime @post.Title @post.PostContent</div>
                 
+                        <div class="post-box">
+                            <div id="post-details-@Model.PostId">
+                                @Ajax.ActionLink("View Details >", "_PostDetails", "Home",
+                               new { id = Model.PostId},
+                               new AjaxOptions
+                               {
+                                   InsertionMode = InsertionMode.Replace,
+                                   UpdateTargetId = "post-details-" + Model.PostId
+                               }, new { @class = "btn btn-default" })
+                            </div>
+                        </div>
             }
-        </ul>
+        
     </div>
+
+
+   
+
 </body>

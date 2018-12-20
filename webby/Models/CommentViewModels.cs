@@ -8,6 +8,7 @@ namespace webby.Models
 {
     public class CommentViewModels
     {
+        public int PostId { get; set; }
         public int AuthorId { get; set; }
         public string Text { get; set; }
         public static Expression<Func<CommentModels, CommentViewModels>> ViewModel
@@ -16,6 +17,7 @@ namespace webby.Models
             {
                 return c => new CommentViewModels()
                 {
+                    PostId = c.PostId,
                     Text = c.Text,
                     AuthorId = c.AuthorId
                 };

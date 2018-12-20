@@ -9,6 +9,7 @@ namespace webby.Models
     public class PostListViewModels
     {
         public List<PostModels> Posts { get; set; }
+        public int PostId { get; set; }
         public string Title { get; set; }
         public DateTime PostTime { get; set; }
         public string PostContent { get; set; }
@@ -21,6 +22,7 @@ namespace webby.Models
             {
                 return e => new PostListViewModels()
                 {
+                    PostId = e.PostId,
                     AuthorId = e.AuthorId,
                     Title = e.Title,
                     PostContent = e.PostContent,

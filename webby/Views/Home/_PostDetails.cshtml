@@ -1,10 +1,12 @@
 ﻿@model webby.Models.PostListViewModels
+
 @if (Model.PostContent != null)
 {
     <div class="Content"> Content: @Model.PostContent</div>
 }
 
     <li>
+        
         @if (Model.Comments.Any())
         {
             @:Comments:
@@ -13,9 +15,9 @@
                 {
                     <li>
                         @comment.Text
-                        @if (comment.AuthorId != null)
+                        @if (comment.PostId != 0)
                         {
-                            @: (by @comment.AuthorId)
+                            @: (by @comment.PostId)
                         }
                     </li>
                 }
@@ -27,11 +29,11 @@
         }
         @if (ViewBag.CanEdit)
         {
-            @Html.ActionLink("Edit", "Edit", "Posts", new { id = Model.AuthorId },
+            @Html.ActionLink("Edit", "Edit", "Posts", new { id = Model.PostId },
                         new { @class = "btn btn-default" })
             <Span></Span>
-            @Html.ActionLink("Delete", "Delete", "Posts", new { id = Model.AuthorId },
+            @Html.ActionLink("Delete", "Delete", "Posts", new { id = Model.PostId },
                         new { @class = "btn btn-default" })
-                    }
+        }
 
     </li>

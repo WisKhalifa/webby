@@ -1,20 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
 using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
 using webby.Models;
 using HttpGetAttribute = Microsoft.AspNetCore.Mvc.HttpGetAttribute;
+
 
 namespace webby.Controllers
 {
     public class PostModelsController : Microsoft.AspNetCore.Mvc.Controller
     {
-        /*private PostContext db;
+        PostContext context = new PostContext();
+
+        private PostContext db;
 
         public PostModelsController(PostContext _db)
         {
@@ -27,8 +24,8 @@ namespace webby.Controllers
             return View("Create");
         }
 
-        [Microsoft.AspNetCore.Mvc.HttpPost]
-        public IActionResult Index (PostModel post)
+        [HttpPost]
+        public IActionResult Index(PostModels post)
         {
             if (ModelState.IsValid)
             {
@@ -37,8 +34,31 @@ namespace webby.Controllers
                 return View(post);
             }
             return View("Create");
-        }*/
+        }
 
+
+        // GET: PostModels/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult createPost (PostModels pst)
+        {
+            context.Posts.Add(pst);
+            context.SaveChanges();
+            string message = "Post Created";
+            return Json(new { Message = message, System.Web.Mvc.JsonRequestBehavior.AllowGet });
+        }
+
+        public JsonResult getPost (string id)
+        {
+            List<PostModels> posts = new List<PostModels>();
+            posts = context.Posts.ToList();
+            return Json(posts);
+        }
         
 
 
@@ -65,19 +85,18 @@ namespace webby.Controllers
             return View(postModel);
         }
 
-        // GET: PostModels/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
         // POST: PostModels/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PostId,Title,PostTime,CreatorId,PostContent,IsPublic")] PostModel postModel)
+        [Microsoft.AspNetCore.Mvc.HttpPost]
+        [Microsoft.AspNetCore.Mvc.ValidateAntiForgeryToken]
+        public IActionResult Create([Microsoft.AspNetCore.Mvc.Bind(Include = "PostId,Title,PostTime,PostContent")] PostModels postModel)
         {
+            if (postModel == null)
+            {
+                throw new ArgumentNullException(nameof(postModel));
+            }
+
             if (ModelState.IsValid)
             {
                 db.PostModels.Add(postModel);
@@ -87,6 +106,7 @@ namespace webby.Controllers
 
             return View(postModel);
         }
+        
 
         // GET: PostModels/Edit/5
         public ActionResult Edit(int? id)

@@ -60,7 +60,8 @@ namespace webby.Controllers
 
         }
 
-        public ActionResult PostDetailsById(int id)
+        [HttpGet]
+        public ActionResult _PostDetails(int id)
         {
             var currentUserId = this.User.Identity.GetUserId();
             var isAdmin = this.IsAdmin();

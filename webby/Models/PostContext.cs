@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+
 namespace webby.Models
 {
     public class PostContext : DbContext
     {
+        public DbSet<PostModels> Posts { get; set; }
+
         public PostContext(DbContextOptions<PostContext> options) : base(options)
         {
 
