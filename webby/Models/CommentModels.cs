@@ -27,5 +27,7 @@ namespace webby.Models
         public int PostId { get;  set; }
         [Required]
         public virtual PostModels Post { get; set; }
+
+        public string Name { get; set; }
     }
 }

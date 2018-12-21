@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using PusherServer;
+using Microsoft.AspNet.Identity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using webby.Models;
 
@@ -75,6 +77,38 @@ namespace webby.Controllers
             return this.PartialView("_PostDetails", postDetails);
         }
 
+        
+        public ActionResult Details (int? id)
+        {
+            
+            return View(db.PostModels.Find(id));
+        }
 
+        [HttpGet]
+        public ActionResult Details (int id)
+        {
+            var model = db.PostModels.Find(id);
+            return View(model);
+        }
+
+        
+        [HttpGet]
+        public ActionResult Comments (int id)
+        {
+            var comments = db.Comments.Where(x => x.PostId == id).ToArray();
+            return Json(comments, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Comment (CommentModels data)
+        {
+            db.Comments.Add(data);
+            db.SaveChanges();
+            var options = new PusherOptions();
+            options.Cluster = "XXX_APP_CLUSTER";
+            var pusher = new Pusher("XXX_APP_ID", "XXX_APP_KEY", "XXX_APP_SECRET", options);
+            ITriggerResult result = await pusher.TriggerAsync("asp_channel", "asp_event", data);
+            return Content("ok");
+        }
     }
 }

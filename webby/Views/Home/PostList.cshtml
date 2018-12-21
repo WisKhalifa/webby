@@ -15,25 +15,42 @@
 </head>
 <body>
     <div>
-        
-            @foreach (webby.Models.PostModels post in Model.Posts)
-            {
 
-                <div> @post.PostId @post.PostTime @post.Title @post.PostContent</div>
-                
-                        <div class="post-box">
-                            <div id="post-details-@Model.PostId">
-                                @Ajax.ActionLink("View Details >", "_PostDetails", "Home",
-                               new { id = Model.PostId},
-                               new AjaxOptions
-                               {
-                                   InsertionMode = InsertionMode.Replace,
-                                   UpdateTargetId = "post-details-" + Model.PostId
-                               }, new { @class = "btn btn-default" })
-                            </div>
-                        </div>
+        @foreach (webby.Models.PostModels post in Model.Posts)
+        {
+
+            <div> @post.PostId @post.PostTime @post.Title @post.PostContent</div>
+            <p>Comments: </p>
+
+            foreach (var comment in post.Comments)
+            {
+                <li>
+                    @comment.Text
+                    @if (comment.PostId != 0)
+                    {
+                        @: (by @comment.AuthorId)
+                    }
+                </li>
             }
-        
+
+            <div class="post-box">
+                <div id="post-details-@Model.PostId">
+                    @Ajax.ActionLink("View Details >", "_PostDetails", "Home",
+                new { id = Model.PostId },
+                new AjaxOptions
+                {
+                    InsertionMode = InsertionMode.Replace,
+                    UpdateTargetId = "post-details-" + Model.PostId
+                }, new { @class = "btn btn-default" })
+                </div>
+            </div>
+
+
+            @Html.ActionLink("Details", "Details", new { id = post.PostId })
+
+        }
+
+
     </div>
 
 

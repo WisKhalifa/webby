@@ -12,12 +12,13 @@ namespace webby.Models
         public PostModels()
         {
             
+
             this.PostTime = DateTime.Now;
             this.Comments = new HashSet<CommentModels>();
         }
         [Key]
         [ScaffoldColumn(false)]
-        public int PostId { get; private set; }
+        public int PostId { get;  set; }
         [Required]
         [MaxLength(100)]
         public string Title { get; set; }

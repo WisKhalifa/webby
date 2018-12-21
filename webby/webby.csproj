@@ -262,6 +262,9 @@
     <Reference Include="Newtonsoft.Json.Bson, Version=1.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.Bson.1.0.1\lib\net45\Newtonsoft.Json.Bson.dll</HintPath>
     </Reference>
+    <Reference Include="PusherServer, Version=4.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PusherServer.4.1.0\lib\net45\PusherServer.dll</HintPath>
+    </Reference>
     <Reference Include="Remotion.Linq, Version=2.2.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
       <HintPath>..\packages\Remotion.Linq.2.2.0\lib\net45\Remotion.Linq.dll</HintPath>
     </Reference>
@@ -570,6 +573,10 @@
     <Compile Include="Migrations\201811121928551_SeedOnly.Designer.cs">
       <DependentUpon>201811121928551_SeedOnly.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812202341224_uptest.cs" />
+    <Compile Include="Migrations\201812202341224_uptest.Designer.cs">
+      <DependentUpon>201812202341224_uptest.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CommentModels.cs" />
@@ -649,6 +656,7 @@
     <Content Include="Views\Home\Create.cshtml" />
     <Content Include="Views\Home\PostList.cshtml" />
     <Content Include="Views\Home\_PostDetails.cshtml" />
+    <Content Include="Views\Home\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -676,6 +684,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811121928551_SeedOnly.resx">
       <DependentUpon>201811121928551_SeedOnly.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812202341224_uptest.resx">
+      <DependentUpon>201812202341224_uptest.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

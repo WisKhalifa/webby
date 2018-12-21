@@ -1,32 +1,5 @@
 ﻿@model webby.Models.PostListViewModels
-
-@if (Model.PostContent != null)
-{
-    <div class="Content"> Content: @Model.PostContent</div>
-}
-
     <li>
-        
-        @if (Model.Comments.Any())
-        {
-            @:Comments:
-            <ul>
-                @foreach (var comment in Model.Comments)
-                {
-                    <li>
-                        @comment.Text
-                        @if (comment.PostId != 0)
-                        {
-                            @: (by @comment.PostId)
-                        }
-                    </li>
-                }
-            </ul>
-        }
-        else
-        {
-            <p>No Comments</p>
-        }
         @if (ViewBag.CanEdit)
         {
             @Html.ActionLink("Edit", "Edit", "Posts", new { id = Model.PostId },
