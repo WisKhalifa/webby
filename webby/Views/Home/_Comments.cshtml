@@ -1,0 +1,12 @@
+﻿@model IQueryable<webby.Models.CommentViewModels>
+@using webby.Models;
+
+@if (Model != null)
+{
+    foreach (CommentViewModels comment in Model)
+    {
+        <p>@comment.CommentId</p>
+        <p>@comment.Name</p>
+        <p>@comment.Text</p>
+    }
+}

@@ -11,7 +11,6 @@ namespace webby.Models
     {
         public CommentModels()
         {
-            this.Date = DateTime.Now;
         }
         [Key]
         [ScaffoldColumn(false)]
@@ -19,13 +18,10 @@ namespace webby.Models
         [Required]
         public string Text { get; set; }
         
-        public DateTime Date { get; set; }
-        
-        public int AuthorId { get; set; }
-        
+   
         
         public int PostId { get;  set; }
-        [Required]
+
         public virtual PostModels Post { get; set; }
 
         public string Name { get; set; }

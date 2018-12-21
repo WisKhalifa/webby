@@ -19,7 +19,7 @@
         @foreach (webby.Models.PostModels post in Model.Posts)
         {
 
-            <div> @post.PostId @post.PostTime @post.Title @post.PostContent</div>
+            <div> @post.PostId  @post.Title @post.PostContent</div>
             <p>Comments: </p>
 
             foreach (var comment in post.Comments)
@@ -28,7 +28,7 @@
                     @comment.Text
                     @if (comment.PostId != 0)
                     {
-                        @: (by @comment.AuthorId)
+                        @: (by @comment.PostId)
                     }
                 </li>
             }

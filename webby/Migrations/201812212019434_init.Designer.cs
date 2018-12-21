@@ -13,7 +13,7 @@ namespace webby.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201811112320513_init"; }
+            get { return "201812212019434_init"; }
         }
         
         string IMigrationMetadata.Source

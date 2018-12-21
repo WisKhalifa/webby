@@ -4,65 +4,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js"></script>
-<script src="//js.pusher.com/4.0/pusher.min.js"></script>
-<script>
-    var pusher = new Pusher('XXX_APP_KEY', {
-                cluster: 'XXX_APP_CLUSTER'
-    });
-    var my_channel = pusher.subscribe('asp_channel');
-            var app = new Vue({
-        el: '#app',
-                data: {
+@section scripts{
+    @Scripts.Render("~/bundles/ajax")
 
-                    comments: [],
-                    comment: {
-
-                        Name: '',
-                        Text: '',
-                        PostId: @Model.PostId
-            }
-    },
-        created: function() {
-        this.get_comments();
-        this.listen();
-    },
-        methods: {
-            get_comments: function() {
-        axios.get('@Url.Action("Comments", "Home", new { id = @Model.PostId }, protocol: Request.Url.Scheme)')
-            .then((response) => {
-
-                this.comments = response.data;
-
-            });
-
-    },
-            listen: function() {
-        my_channel.bind("asp_event", (data) => {
-            if (data.PostId == this.comment.PostId) {
-                this.comments.push(data);
-            }
-
-        })
-            },
-            submit_comment: function() {
-        axios.post('@Url.Action("Comment", "Home", new {}, protocol: Request.Url.Scheme)', this.comment)
-            .then((response) => {
-                this.comment.Name = '';
-                this.comment.Text = '';
-                alert("Comment Submitted");
-
-            });
+    
     }
-        }
-    });
-</script>
-
-
-
-
-
 <style>
     .user_name {
         font-size: 14px;
@@ -73,13 +19,29 @@
         border-bottom: 1px dotted #ccc;
     }
 </style>
-<h2>Details</h2>
+
+<p>
+
+    @Html.ActionLink("Back to List", "PostList")
+</p>
+
+<h2>Comments</h2>
+
+
 
 <div id="app">
     <div>
 
         <hr />
         <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.PostId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PostId)
+            </dd>
+
             <dt>
                 @Html.DisplayNameFor(model => model.Title)
             </dt>
@@ -102,34 +64,38 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="page-header">
-                    <h1><small class="pull-right">{{comments.length}} comments</small> Comments </h1>
+                    <h1>Current Comments</h1>
                 </div>
                 <div class="comments-list">
-                    <div class="media" v-for="com in comments">
+                    <div class="media">
                         <div class="media-body">
-                            <h4 class="media-heading user_name">{{com.Name}}</h4>
-                            {{com.Text}}
+
+
+                            <div class="post-box">
+                                <div id="post-details-@this.Model.PostId">
+                                    @Ajax.ActionLink("View All Comments >", "_Comments", "Home",
+                                new { id = this.Model.PostId },
+                                new AjaxOptions
+                                {
+                                    InsertionMode = InsertionMode.Replace,
+                                    UpdateTargetId = "post-details-" + this.Model.PostId
+                                }, new { @class = "btn btn-default" })
+
+
+
+
+                                </div>
+                            </div>
+                            @{ int i = this.Model.PostId;}
+                            @Html.Action("CreateComment", "Home", new { pId = i })
+
+
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="container">
-        <br />
-        <p>Your Comment</p>
-        <form onsubmit="return false;">
-            <input type="text" id="Name" placeholder="Your Name" v-model="comment.Name" class="form-control" />
-            <textarea rows="3" placeholder="Your Comment" id="Text" v-model="comment.Text" class="form-control"></textarea>
-            <button class="btn btn-success" v-on:click="submit_comment()">Add Comment</button>
-        </form>
-    </div>
-</div>
 
 
-
-
-<p>
-
-    @Html.ActionLink("Back to List", "PostList")
-</p>

@@ -1,5 +1,5 @@
-﻿using PusherServer;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -68,7 +68,7 @@ namespace webby.Controllers
             var currentUserId = this.User.Identity.GetUserId();
             var isAdmin = this.IsAdmin();
             var postDetails = this.db.PostModels
-                .Where(e => e.AuthorId == id)
+                .Where(e => e.PostId == id)
                 .Select(PostListViewModels.ViewModel)
                 .FirstOrDefault();
 
@@ -93,22 +93,61 @@ namespace webby.Controllers
 
         
         [HttpGet]
-        public ActionResult Comments (int id)
+        public ActionResult _Comments (int id)
         {
-            var comments = db.Comments.Where(x => x.PostId == id).ToArray();
-            return Json(comments, JsonRequestBehavior.AllowGet);
+            var comments =  this.db.Comments
+                .Where(x => x.PostId == id)
+                .Select(CommentViewModels.ViewModel);
+
+            ViewBag.test = comments;
+            
+
+            return this.PartialView("_Comments",comments);
         }
 
         [HttpPost]
-        public async Task<ActionResult> Comment (CommentModels data)
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateComment (CommentModels data)
         {
-            db.Comments.Add(data);
-            db.SaveChanges();
-            var options = new PusherOptions();
-            options.Cluster = "XXX_APP_CLUSTER";
-            var pusher = new Pusher("XXX_APP_ID", "XXX_APP_KEY", "XXX_APP_SECRET", options);
-            ITriggerResult result = await pusher.TriggerAsync("asp_channel", "asp_event", data);
-            return Content("ok");
+            System.Diagnostics.Debug.WriteLine(data.PostId);
+
+            if (ModelState.IsValid)
+            {
+                var _comm = new CommentModels()
+                {
+                    PostId = data.PostId,
+                    Name = data.Name,
+                    Text = data.Text
+                };
+                db.Comments.Add(_comm);
+                
+                db.SaveChanges();
+                //return RedirectToAction("PostList");
+            }
+            return View("CreateComment");
         }
+
+        [HttpGet]
+        public ActionResult CreateComment (int pId)
+        {
+            CommentModels newCom = new CommentModels();
+            newCom.PostId = pId;
+            ViewBag.Foo = pId;
+            return View(newCom);
+        }
+
+
+        public PartialViewResult GetComs (int pId)
+        {
+            IQueryable<CommentViewModels> comments = db.Comments.Where(c => c.Post.PostId == pId)
+                .Select(c => new CommentViewModels
+                {
+                    CommentId = c.CommentId,
+                    Name = c.Name,
+                    Text = c.Text
+                }).AsQueryable();
+            return PartialView("~/Views/Home/_Comments.cshtml", comments);
+        }
+
     }
 }

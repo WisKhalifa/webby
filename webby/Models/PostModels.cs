@@ -11,28 +11,22 @@ namespace webby.Models
     {
         public PostModels()
         {
-            
 
-            this.PostTime = DateTime.Now;
+
             this.Comments = new HashSet<CommentModels>();
         }
         [Key]
         [ScaffoldColumn(false)]
-        public int PostId { get;  set; }
+        public int PostId { get; set; }
         [Required]
         [MaxLength(100)]
         public string Title { get; set; }
-        [ScaffoldColumn(false)]
-        public DateTime PostTime { get; set; }
-        
-        [ScaffoldColumn(false)]
-        public int AuthorId { get; set; }
-        /*[ScaffoldColumn(false)]
-        [ForeignKey ("AuthorId")]
-        public virtual ApplicationUser Author { get; set; }*/
+
+  
         public string PostContent { get; set; }
-        
+
         [ScaffoldColumn(false)]
-        public virtual ICollection<CommentModels> Comments { get; set; }
+        public virtual ICollection<CommentModels> Comments { get; set;
+    }
     }
 }

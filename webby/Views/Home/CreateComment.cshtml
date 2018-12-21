@@ -1,0 +1,20 @@
+﻿@model webby.Models.CommentModels
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken()
+    <div class="addcommentbox">
+        <h2> Add Comment </h2>
+        @Html.Hidden("PostId", (object) ViewBag.Foo)
+        @Html.TextAreaFor(model => model.Text)
+        <div class="ErrorMessage">
+            @Html.ValidationMessageFor(model => model.Text)
+        </div>
+        <div class="addcommentbox">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="CreateComment" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+

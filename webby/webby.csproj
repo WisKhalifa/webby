@@ -565,17 +565,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201811112320513_init.cs" />
-    <Compile Include="Migrations\201811112320513_init.Designer.cs">
-      <DependentUpon>201811112320513_init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811121928551_SeedOnly.cs" />
-    <Compile Include="Migrations\201811121928551_SeedOnly.Designer.cs">
-      <DependentUpon>201811121928551_SeedOnly.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201812202341224_uptest.cs" />
-    <Compile Include="Migrations\201812202341224_uptest.Designer.cs">
-      <DependentUpon>201812202341224_uptest.cs</DependentUpon>
+    <Compile Include="Migrations\201812212019434_init.cs" />
+    <Compile Include="Migrations\201812212019434_init.Designer.cs">
+      <DependentUpon>201812212019434_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -657,6 +649,8 @@
     <Content Include="Views\Home\PostList.cshtml" />
     <Content Include="Views\Home\_PostDetails.cshtml" />
     <Content Include="Views\Home\Details.cshtml" />
+    <Content Include="Views\Home\_Comments.cshtml" />
+    <Content Include="Views\Home\CreateComment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -679,14 +673,8 @@
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201811112320513_init.resx">
-      <DependentUpon>201811112320513_init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811121928551_SeedOnly.resx">
-      <DependentUpon>201811121928551_SeedOnly.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201812202341224_uptest.resx">
-      <DependentUpon>201812202341224_uptest.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201812212019434_init.resx">
+      <DependentUpon>201812212019434_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

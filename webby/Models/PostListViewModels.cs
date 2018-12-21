@@ -11,9 +11,7 @@ namespace webby.Models
         public List<PostModels> Posts { get; set; }
         public int PostId { get; set; }
         public string Title { get; set; }
-        public DateTime PostTime { get; set; }
         public string PostContent { get; set; }
-        public int AuthorId { get; set; }
         public virtual IEnumerable<CommentViewModels> Comments { get; set; }
 
         public static Expression<Func<PostModels, PostListViewModels>> ViewModel
@@ -23,7 +21,6 @@ namespace webby.Models
                 return e => new PostListViewModels()
                 {
                     PostId = e.PostId,
-                    AuthorId = e.AuthorId,
                     Title = e.Title,
                     PostContent = e.PostContent,
                     Comments = e.Comments.AsQueryable().Select(CommentViewModels.ViewModel)

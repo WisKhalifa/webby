@@ -25,26 +25,35 @@ namespace webby.Migrations
 
                 var userStore = new UserStore<ApplicationUser>(context);
                 var userManager = new UserManager<ApplicationUser>(userStore);
-                var adminEmail = "admin@admin.com";
+                var adminEmail = "Member1@email.com";
                 var adminName = "Admin";
-                var adminPassword = "Admin123!";
+                var adminPassword = "Password123!";
                 string adminRole = "Administrator";
-                var user1Email = "user1@user.com";
+                var user1Email = "Customer1@email.com";
                 var user1Name = "User1";
-                var user2Email = "user2@user.com";
+                var user2Email = "Customer2@email.com";
                 var user2Name = "User2";
-                var userPass = "Test123!";
-                
+                var user3Email = "Customer3@email.com";
+                var user3Name = "User3";
+                var user4Email = "Customer4@email.com";
+                var user4Name = "User4";
+                var user5Email = "Customer5@email.com";
+                var user5Name = "User5";
+                var userPass = "Password123!";
+
 
 
                 //Create Admin Role
                 var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
                 roleManager.Create(new IdentityRole(adminRole));
-                
+
 
 
                 CreateUser(context, user1Email, user1Name, userPass);
                 CreateUser(context, user2Email, user2Name, userPass);
+                CreateUser(context, user3Email, user3Name, userPass);
+                CreateUser(context, user4Email, user4Name, userPass);
+                CreateUser(context, user5Email, user5Name, userPass);
                 CreateAdminUser(context, adminEmail, adminName, adminPassword, adminRole);
                 CreateSeveralPosts(context);
 
@@ -64,10 +73,10 @@ namespace webby.Migrations
 
                     //Add Admin Role to Admin User
                     userManager.AddToRole(adminUser.Id, adminRole);
-                    
+
 
                 }
-                
+
                 //Add Users
                 void CreateUser(ApplicationDbContext contxt, string usrEmail, string usrName, string usrPass)
                 {
@@ -75,7 +84,7 @@ namespace webby.Migrations
                     {
                         Name = usrName,
                         Email = usrEmail
-                        
+
                     };
                     genUser.UserName = usrEmail;
                     genUser.EmailConfirmed = true;
@@ -103,7 +112,7 @@ namespace webby.Migrations
                         PostContent = "Seed Test 2 Post Content",
                         Comments = new HashSet<CommentModels>()
                             {
-                                new CommentModels(){Text = "Anonymous Comment Seed Test 2 1"},
+                                new CommentModels(){Name = "test", Text = "Anonymous Comment Seed Test 2 1"},
                                 new CommentModels(){Text = "Anonymous Comment Seed Test 2 2"},
                                 new CommentModels(){Text = "Anonymous Comment Seed Test 2 3"}
                             }
