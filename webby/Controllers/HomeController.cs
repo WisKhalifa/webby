@@ -176,5 +176,38 @@ namespace webby.Controllers
             return View(postModel);
         }
 
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            PostModels postModel = db.PostModels.Find(id);
+            if (postModel == null)
+            {
+                return HttpNotFound();
+            }
+            return View(postModel);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            PostModels postModel = db.PostModels.Find(id);
+            db.PostModels.Remove(postModel);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
     }
 }

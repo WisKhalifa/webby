@@ -642,10 +642,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\PostModels\Delete.cshtml" />
-    <Content Include="Views\PostModels\Details.cshtml" />
-    <Content Include="Views\PostModels\Edit.cshtml" />
-    <Content Include="Views\PostModels\Index.cshtml" />
     <Content Include="Views\Home\Create.cshtml" />
     <Content Include="Views\Home\PostList.cshtml" />
     <Content Include="Views\Home\_PostDetails.cshtml" />
@@ -653,6 +649,7 @@
     <Content Include="Views\Home\_Comments.cshtml" />
     <Content Include="Views\Home\CreateComment.cshtml" />
     <Content Include="Views\Home\Edit.cshtml" />
+    <Content Include="Views\Home\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
