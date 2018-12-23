@@ -3,44 +3,48 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title</title>
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    
+
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+
                 @Html.ActionLink("Webby!", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    @if (Request.IsAuthenticated)
+
+
+
+
+                @if (Request.IsAuthenticated)
+                {
+                    if (HttpContext.Current.User.IsInRole("Administrator"))
                     {
-                        if (HttpContext.Current.User.IsInRole("Administrator"))
-                        {
-                            <li>@Html.ActionLink("View Posts", "PostList", "Home")</li>
-                            <li>@Html.ActionLink("My Comments", "Create", "Home")</li>
-                            <li>@Html.ActionLink("Create Post", "Create", "Home")</li>
-                        }
-                        else
-                        {
-                            <li>@Html.ActionLink("View Posts", "PostList", "Home")</li>
-                            <li>@Html.ActionLink("My Comments", "PostList", "Home")</li>
-                            <li>@Html.ActionLink("Comment on a Post", "Create", "Home")</li>
-                        }
+                        @:|
+                        @Html.ActionLink("Create Post", "Create", "Home")
+
+                        <wbr />
+                        <text> - </text>
+                        @Html.ActionLink("View Posts", "PostList", "Home")
+                        @:|
                     }
-
-
-
-                </ul>
+                    else
+                    {
+                        @:|
+                        @Html.ActionLink("View Posts", "PostList", "Home")
+                        @:|
+                    }
+                }
+                
+            </div>
+            
+            <div>
+                
+ 
                 @Html.Partial("_LoginPartial")
             </div>
         </div>

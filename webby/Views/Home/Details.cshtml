@@ -1,6 +1,6 @@
 ﻿@model webby.Models.PostModels
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Post Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -9,23 +9,10 @@
 
     
     }
-<style>
-    .user_name {
-        font-size: 14px;
-        font-weight: bold;
-    }
 
-    .comments-list .media {
-        border-bottom: 1px dotted #ccc;
-    }
-</style>
 
-<p>
 
-    @Html.ActionLink("Back to List", "PostList")
-</p>
-
-<h2>Comments</h2>
+<h2>Post Details</h2>
 
 
 
@@ -34,14 +21,7 @@
 
         <hr />
         <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.PostId)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.PostId)
-            </dd>
-
+            
             <dt>
                 @Html.DisplayNameFor(model => model.Title)
             </dt>
@@ -51,7 +31,7 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.PostContent)
+                Post Content:
             </dt>
 
             <dd>
@@ -60,42 +40,28 @@
 
         </dl>
     </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8">
-                <div class="page-header">
-                    <h1>Current Comments</h1>
-                </div>
-                <div class="comments-list">
-                    <div class="media">
-                        <div class="media-body">
-
-
-                            <div class="post-box">
-                                <div id="post-details-@this.Model.PostId">
-                                    @Ajax.ActionLink("View All Comments >", "_Comments", "Home",
-                                new { id = this.Model.PostId },
-                                new AjaxOptions
-                                {
-                                    InsertionMode = InsertionMode.Replace,
-                                    UpdateTargetId = "post-details-" + this.Model.PostId
-                                }, new { @class = "btn btn-default" })
-
-
-
-
-                                </div>
-                            </div>
-                            @{ int i = this.Model.PostId;}
-                            @Html.Action("CreateComment", "Home", new { pId = i })
-
-
-
-                        </div>
-                    </div>
-                </div>
+    
+    <div>
+        <h5>Current Comments</h5>
+        <div class="post-box">
+            <div id="post-details-@this.Model.PostId">
+                @Ajax.ActionLink("View All Comments >", "_Comments", "Home",
+            new { id = this.Model.PostId },
+            new AjaxOptions
+            {
+                InsertionMode = InsertionMode.Replace,
+                UpdateTargetId = "post-details-" + this.Model.PostId
+            }, new { @class = "a a-default" })
             </div>
         </div>
+        <p> </p>
+        <div>
+            @{ int i = this.Model.PostId;}
+            @Html.Action("CreateComment", "Home", new { pId = i })
+        </div>
+        
     </div>
+
+    
 
 

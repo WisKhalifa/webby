@@ -5,8 +5,13 @@
 {
     foreach (CommentViewModels comment in Model)
     {
-        <p>@comment.CommentId</p>
-        <p>@comment.Name</p>
-        <p>@comment.Text</p>
+        
+
+        @comment.Text
+        <p> </p>
+        @:(by: @comment.Name)
+        <p> </p>
+        <br />
+        
     }
 }

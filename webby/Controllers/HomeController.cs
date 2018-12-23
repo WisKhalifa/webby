@@ -109,22 +109,20 @@ namespace webby.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateComment (CommentModels data)
         {
-            System.Diagnostics.Debug.WriteLine(data.PostId);
-
+            
+            
             if (ModelState.IsValid)
             {
                 var _comm = new CommentModels()
                 {
                     PostId = data.PostId,
-                    Name = data.Name,
+                    Name = System.Web.HttpContext.Current.User.Identity.Name,
                     Text = data.Text
                 };
                 db.Comments.Add(_comm);
-                
                 db.SaveChanges();
-                //return RedirectToAction("PostList");
             }
-            return View("CreateComment");
+            return PartialView("CreateComment");
         }
 
         [HttpGet]

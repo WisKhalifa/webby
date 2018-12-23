@@ -22,7 +22,7 @@ namespace webby.Models
         [MaxLength(100)]
         public string Title { get; set; }
 
-  
+        [Display(Name = "Content")]
         public string PostContent { get; set; }
 
         [ScaffoldColumn(false)]

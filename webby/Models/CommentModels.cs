@@ -11,6 +11,7 @@ namespace webby.Models
     {
         public CommentModels()
         {
+            
         }
         [Key]
         [ScaffoldColumn(false)]

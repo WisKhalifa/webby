@@ -1,6 +1,6 @@
 ﻿@model webby.Models.PostListViewModels
 @{
-    ViewBag.Title = "PostList";
+    ViewBag.Title = "View Posts";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
@@ -8,45 +8,59 @@
 @section scripts{
     @Scripts.Render("~/bundles/ajax")}
 
-<h2>PostList</h2>
+<h2>Current Posts</h2>
+<p> </p>
+<hr />
 
-<head>
-    <title>Your Posts</title>
-</head>
 <body>
     <div>
 
         @foreach (webby.Models.PostModels post in Model.Posts)
         {
-
-            <div> @post.PostId  @post.Title @post.PostContent</div>
-            <p>Comments: </p>
-
-            foreach (var comment in post.Comments)
-            {
-                <li>
-                    @comment.Text
-                    @if (comment.PostId != 0)
-                    {
-                        @: (by @comment.PostId)
-                    }
-                </li>
-            }
-
-            <div class="post-box">
-                <div id="post-details-@Model.PostId">
-                    @Ajax.ActionLink("View Details >", "_PostDetails", "Home",
-                new { id = Model.PostId },
-                new AjaxOptions
+            <table>
+                <tr>
+                <thead><h4> @post.Title</h4></thead></tr>
+                @{int i = 0;
+                }
+                @foreach (var comment in post.Comments)
                 {
-                    InsertionMode = InsertionMode.Replace,
-                    UpdateTargetId = "post-details-" + Model.PostId
-                }, new { @class = "btn btn-default" })
-                </div>
-            </div>
+                    i++;
+                }
+
+                <tr><td> This post has @i comments.</td></tr>
+                <tr>
+                    <td>
+                        @Html.ActionLink("View Contents and Comment >", "Details", new { id = post.PostId })
+                    </td>
+
+                </tr>
+                @if (Request.IsAuthenticated)
+                {
+                    if (HttpContext.Current.User.IsInRole("Administrator"))
+                    {
+                        <tr>
+                            <div class="post-box">
+                                <div id="post-details-@Model.PostId">
+                                    @Ajax.ActionLink("(Admin) Change this Post >", "_PostDetails", "Home",
+                                new { id = Model.PostId },
+                                new AjaxOptions
+                                {
+                                    InsertionMode = InsertionMode.Replace,
+                                    UpdateTargetId = "post-details-" + Model.PostId
+                                }, new { @class = "a a-default" })
+                                </div>
+                            </div>
+                        </tr>
 
 
-            @Html.ActionLink("Details", "Details", new { id = post.PostId })
+
+                    }
+
+                }
+
+
+            </table>
+            <p> </p>
 
         }
 
