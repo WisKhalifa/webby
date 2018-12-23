@@ -40,13 +40,13 @@
                     {
                         <tr>
                             <div class="post-box">
-                                <div id="post-details-@Model.PostId">
+                                <div id="post-details-@post.PostId">
                                     @Ajax.ActionLink("(Admin) Change this Post >", "_PostDetails", "Home",
-                                new { id = Model.PostId },
+                                new { id = post.PostId },
                                 new AjaxOptions
                                 {
                                     InsertionMode = InsertionMode.Replace,
-                                    UpdateTargetId = "post-details-" + Model.PostId
+                                    UpdateTargetId = "post-details-" + post.PostId
                                 }, new { @class = "a a-default" })
                                 </div>
                             </div>

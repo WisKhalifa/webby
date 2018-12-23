@@ -1,12 +1,10 @@
 ﻿@model webby.Models.PostListViewModels
-    <li>
         @if (ViewBag.CanEdit)
         {
-            @Html.ActionLink("Edit", "Edit", "Posts", new { id = Model.PostId },
-                        new { @class = "btn btn-default" })
+            @Html.ActionLink("Edit", "Edit", "Home", new { id = Model.PostId },
+                        new { @class = "a a-default" })
             <Span></Span>
             @Html.ActionLink("Delete", "Delete", "Posts", new { id = Model.PostId },
-                        new { @class = "btn btn-default" })
+                        new { @class = "a a-default" })
         }
 
-    </li>

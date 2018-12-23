@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNet.Identity;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using webby.Models;
@@ -39,7 +41,7 @@ namespace webby.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
-        public ActionResult Create(PostModels post)
+        public ActionResult Create([Bind(Include = "PostId,Title,PostContent")] PostModels post)
         {
             if (ModelState.IsValid)
             {
@@ -107,7 +109,7 @@ namespace webby.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateComment (CommentModels data)
+        public ActionResult CreateComment ([Bind(Include = "CommentId,Name,Text,PostId")]CommentModels data)
         {
             
             
@@ -145,6 +147,33 @@ namespace webby.Controllers
                     Text = c.Text
                 }).AsQueryable();
             return PartialView("~/Views/Home/_Comments.cshtml", comments);
+        }
+
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            PostModels postModel = db.PostModels.Find(id);
+            if (postModel == null)
+            {
+                return HttpNotFound();
+            }
+            return View(postModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "PostId,Title,PostContent")] PostModels postModel)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(postModel).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("PostList");
+            }
+            return View(postModel);
         }
 
     }
