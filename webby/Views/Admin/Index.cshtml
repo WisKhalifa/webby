@@ -38,6 +38,11 @@
         <td>
             @Html.DisplayFor(modelItem => item.Email)
         </td>
+
+
+    </tr>
+    <br />
+    <tr>
         <td>
             @Html.ActionLink("Edit", "EditUser", new { UserName = item.UserName }) |
             @if ((item.UserName.ToLower() != this.User.Identity.Name.ToLower()))

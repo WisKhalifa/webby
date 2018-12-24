@@ -13,7 +13,7 @@ namespace webby.Models
 
         public PostContext()
         {
-            
+
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -23,14 +23,5 @@ namespace webby.Models
                 optionsBuilder.UseSqlServer("Data Source = (localdb)\\mssqllocaldb; Database = aspnet-webby-20181110020856; Trusted_Connection = True; MultipleActiveResultSets = true");
             }
         }
-        
-
-        
-
-
-
-
-
-
     }
 }

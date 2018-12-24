@@ -577,12 +577,12 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\PostContext.cs" />
     <Compile Include="Models\UserRolesDTO.cs" />
     <Compile Include="Models\CommentModels.cs" />
     <Compile Include="Models\CommentViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\PostContext.cs" />
     <Compile Include="Models\PostListViewModels.cs" />
     <Compile Include="Models\PostModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

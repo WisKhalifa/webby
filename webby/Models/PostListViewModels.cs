@@ -9,11 +9,16 @@ namespace webby.Models
     public class PostListViewModels
     {
         public List<PostModels> Posts { get; set; }
+
         public int PostId { get; set; }
+
         public string Title { get; set; }
+
         public string PostContent { get; set; }
+
         public virtual IEnumerable<CommentViewModels> Comments { get; set; }
 
+        //Return a view model of a post from the db
         public static Expression<Func<PostModels, PostListViewModels>> ViewModel
         {
             get

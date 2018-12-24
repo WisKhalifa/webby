@@ -1,14 +1,16 @@
-﻿using System;
+﻿/*I referenced this guide to complete the admin page:
+ * http://openlightgroup.com/Blog/TabId/58/PostId/189/UserRolesAdministration.aspx  */
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using PagedList;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.AspNet.Identity.EntityFramework;
 using webby.Models;
-using PagedList;
-using System.Collections.Generic;
 
 namespace webby.Controllers
 {
@@ -116,11 +118,11 @@ namespace webby.Controllers
                     new RoleStore<IdentityRole>(new ApplicationDbContext())
                     );
             List<RoleDTO> colRoleDTO = (from objRole in roleManager.Roles
-                               select new RoleDTO
-                               {
-                                   Id = objRole.Id,
-                                   RoleName = objRole.Name
-                               }).ToList();
+                                        select new RoleDTO
+                                        {
+                                            Id = objRole.Id,
+                                            RoleName = objRole.Name
+                                        }).ToList();
             return View(colRoleDTO);
         }
 
@@ -166,7 +168,7 @@ namespace webby.Controllers
                 return View("AddRole");
             }
         }
-        
+
         // DELETE: /Admin/DeleteUserRole?RoleName=TestRole
         [Authorize(Roles = "Administrator")]
         public ActionResult DeleteUserRole(string RoleName)
@@ -209,11 +211,11 @@ namespace webby.Controllers
                             );
                 }
                 List<RoleDTO> colRoleDTO = (from objRole in roleManager.Roles
-                                   select new RoleDTO
-                                   {
-                                       Id = objRole.Id,
-                                       RoleName = objRole.Name
-                                   }).ToList();
+                                            select new RoleDTO
+                                            {
+                                                Id = objRole.Id,
+                                                RoleName = objRole.Name
+                                            }).ToList();
                 return View("ViewAllRoles", colRoleDTO);
             }
             catch (Exception ex)
@@ -223,11 +225,11 @@ namespace webby.Controllers
                     new RoleManager<IdentityRole>(
                         new RoleStore<IdentityRole>(new ApplicationDbContext()));
                 List<RoleDTO> colRoleDTO = (from objRole in roleManager.Roles
-                                   select new RoleDTO
-                                   {
-                                       Id = objRole.Id,
-                                       RoleName = objRole.Name
-                                   }).ToList();
+                                            select new RoleDTO
+                                            {
+                                                Id = objRole.Id,
+                                                RoleName = objRole.Name
+                                            }).ToList();
                 return View("ViewAllRoles", colRoleDTO);
             }
         }
@@ -325,7 +327,7 @@ namespace webby.Controllers
             }
             return View(objExpandedUserDTO);
         }
-        
+
         // PUT: /Admin/EditUser
         [Authorize(Roles = "Administrator")]
         [HttpPost]

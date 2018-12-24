@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 using webby.Models;
 
@@ -21,10 +19,10 @@ namespace webby.Controllers
             return View();
         }
 
-
+        //Db access
         private ApplicationDbContext db = new ApplicationDbContext();
 
-
+        //Check if user is in admin role
         public bool IsAdmin()
         {
             var currentUserId = this.User.Identity.GetUserId();
@@ -32,12 +30,14 @@ namespace webby.Controllers
             return isAdmin;
         }
 
+        //GET: Create view
         [HttpGet]
         public ActionResult Create()
         {
             return View("Create");
         }
 
+        //POST: Create a post/add post to db
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
@@ -53,6 +53,7 @@ namespace webby.Controllers
             return View("Create");
         }
 
+        //GET: Post list view model to get all posts from db
         [HttpGet]
         public ActionResult PostList()
         {
@@ -64,6 +65,7 @@ namespace webby.Controllers
 
         }
 
+        //GET: View post actions to edit and delete if admin
         [HttpGet]
         public ActionResult _PostDetails(int id)
         {
@@ -79,40 +81,43 @@ namespace webby.Controllers
             return this.PartialView("_PostDetails", postDetails);
         }
 
-        
-        public ActionResult Details (int? id)
+
+        //Return details of post by id
+        public ActionResult Details(int? id)
         {
-            
+
             return View(db.PostModels.Find(id));
         }
 
+        //GET: Return a post by given id
         [HttpGet]
-        public ActionResult Details (int id)
+        public ActionResult Details(int id)
         {
             var model = db.PostModels.Find(id);
             return View(model);
         }
 
-        
+        //GET: Return comments by given id
         [HttpGet]
-        public ActionResult _Comments (int id)
+        public ActionResult _Comments(int id)
         {
-            var comments =  this.db.Comments
+            var comments = this.db.Comments
                 .Where(x => x.PostId == id)
                 .Select(CommentViewModels.ViewModel);
 
             ViewBag.test = comments;
-            
 
-            return this.PartialView("_Comments",comments);
+
+            return this.PartialView("_Comments", comments);
         }
 
+        //POST: Add a comment to the db
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateComment ([Bind(Include = "CommentId,Name,Text,PostId")]CommentModels data)
+        public ActionResult CreateComment([Bind(Include = "CommentId,Name,Text,PostId")]CommentModels data)
         {
-            
-            
+
+
             if (ModelState.IsValid)
             {
                 var _comm = new CommentModels()
@@ -127,8 +132,9 @@ namespace webby.Controllers
             return PartialView("CreateComment");
         }
 
+        //GET: Return a comment with a given id
         [HttpGet]
-        public ActionResult CreateComment (int pId)
+        public ActionResult CreateComment(int pId)
         {
             CommentModels newCom = new CommentModels();
             newCom.PostId = pId;
@@ -136,8 +142,8 @@ namespace webby.Controllers
             return View(newCom);
         }
 
-
-        public PartialViewResult GetComs (int pId)
+        //Return apartial view of comments with id
+        public PartialViewResult GetComs(int pId)
         {
             IQueryable<CommentViewModels> comments = db.Comments.Where(c => c.Post.PostId == pId)
                 .Select(c => new CommentViewModels
@@ -149,6 +155,7 @@ namespace webby.Controllers
             return PartialView("~/Views/Home/_Comments.cshtml", comments);
         }
 
+        //Return a post to edit given an id
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -163,6 +170,7 @@ namespace webby.Controllers
             return View(postModel);
         }
 
+        //POST: Add an edited post into the ed
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "PostId,Title,PostContent")] PostModels postModel)
@@ -176,6 +184,7 @@ namespace webby.Controllers
             return View(postModel);
         }
 
+        //Delete a post from the db given an id
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -190,6 +199,7 @@ namespace webby.Controllers
             return View(postModel);
         }
 
+        //POST: Confirm post has been deleted from db
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
