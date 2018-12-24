@@ -1,0 +1,27 @@
+﻿@model IEnumerable<webby.Models.RoleDTO>
+@{
+    ViewBag.Title = "ViewAllRoles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<p>
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+    @Html.ActionLink("Add Role", "AddRole", null, new { @class = "btn btn-default" })
+    </p>
+    
+<table>
+    <tr><th>Role</th></tr>
+    @foreach (var item in Model)
+    {
+        <tr><td>@Html.DisplayFor(modelItem => item.RoleName)</td>
+    <td>@if (item.RoleName.ToLower() != "administrator")
+    {
+        @Html.ActionLink("Delete", "DeleteUserRole", new { RoleName = item.RoleName }, new { onclick = "return confirm ('Are you sure you want to delete this role?');" })
+    }
+            </td>
+    </tr>
+        
+    }
+</table>

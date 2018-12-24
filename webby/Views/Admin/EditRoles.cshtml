@@ -1,0 +1,43 @@
+﻿@model webby.Models.UserAndRolesDTO
+@{
+    ViewBag.Title = "EditRoles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger"})
+    <div>
+        @Html.ActionLink("Back","EditUser", new { UserName = Model.UserName },
+       new { @class = "a a-default"})
+        <input type="submit" value="Add Role" class="a a-default" />
+        @Html.DropDownList("AddRole")
+    </div>
+    <br />
+    <table>
+        <tr>
+            <th>
+                Existing Roles:
+            </th>
+        </tr>
+        @foreach(var item in Model.colUserRoleDTO)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoleName)
+                </td>
+                <td>
+                    @if(!((Model.UserName.ToLower() == this.User.Identity.Name.ToLower()) && item.RoleName
+                        == "Administrator") && item.RoleName != "No Roles Found")
+                    {
+                        @Html.ActionLink("Delete", "DeleteRole",
+                       new { UserName = item.UserName, RoleName = item.RoleName },
+                       new { onclick= "return confirm ('Are you sure you want to delete this role?');"})
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+}
+

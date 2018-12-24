@@ -63,6 +63,9 @@ namespace webby
             //    ClientId = "",
             //    ClientSecret = ""
             //});
+
+
+            app.CreatePerOwinContext<ApplicationRoleManager>(ApplicationRoleManager.Create);
         }
     }
 }
