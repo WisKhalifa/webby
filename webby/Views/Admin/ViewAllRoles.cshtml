@@ -4,12 +4,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<h2>View All Roles</h2>
+<hr />
 
 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 <p>
-    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
-    @Html.ActionLink("Add Role", "AddRole", null, new { @class = "btn btn-default" })
-    </p>
+    |
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "a a-default" })
+    <wbr />
+    <text> - </text>
+    @Html.ActionLink("Add Role", "AddRole", null, new { @class = "a a-default" })
+    |
+</p>
     
 <table>
     <tr><th>Role</th></tr>
