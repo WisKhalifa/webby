@@ -21,7 +21,7 @@
 
         <hr />
         <dl class="dl-horizontal">
-            
+
             <dt>
                 @Html.DisplayNameFor(model => model.Title)
             </dt>
@@ -40,7 +40,7 @@
 
         </dl>
     </div>
-    
+  
     <div>
         <h5>Current Comments</h5>
         <div class="post-box">
@@ -59,9 +59,9 @@
             @{ int i = this.Model.PostId;}
             @Html.Action("CreateComment", "Home", new { pId = i })
         </div>
-        
+
     </div>
 
-    
+
 
 

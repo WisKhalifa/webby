@@ -3,12 +3,14 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using webby.Interfaces;
 using webby.Models;
 
 namespace webby.Controllers
 {
     public class HomeController : Controller
     {
+
         public HomeController()
         {
 
@@ -21,6 +23,13 @@ namespace webby.Controllers
 
         //Db access
         private ApplicationDbContext db = new ApplicationDbContext();
+
+        //Using Dependency Injection and repository pattern to access db for posts
+        private readonly IPostRepository _postRepository = new PostRepository();
+        public HomeController (IPostRepository postRepository)
+        {
+            _postRepository = postRepository;
+        }
 
         //Check if user is in admin role
         public bool IsAdmin()
@@ -45,9 +54,8 @@ namespace webby.Controllers
         {
             if (ModelState.IsValid)
             {
-
-                db.PostModels.Add(post);
-                db.SaveChanges();
+                _postRepository.Add(post);
+                
                 return RedirectToAction("PostList");
             }
             return View("Create");
@@ -57,9 +65,10 @@ namespace webby.Controllers
         [HttpGet]
         public ActionResult PostList()
         {
-            PostListViewModels postListViewModel = new PostListViewModels();
-
-            postListViewModel.Posts = db.PostModels.ToList<PostModels>();
+            PostListViewModels postListViewModel = new PostListViewModels
+            {
+                Posts = db.PostModels.ToList<PostModels>()
+            };
 
             return View(postListViewModel);
 
@@ -177,8 +186,7 @@ namespace webby.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(postModel).State = EntityState.Modified;
-                db.SaveChanges();
+                _postRepository.Edit(postModel);
                 return RedirectToAction("PostList");
             }
             return View(postModel);
@@ -204,9 +212,7 @@ namespace webby.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            PostModels postModel = db.PostModels.Find(id);
-            db.PostModels.Remove(postModel);
-            db.SaveChanges();
+            _postRepository.Remove(id);
             return RedirectToAction("Index");
         }
 
