@@ -146,8 +146,10 @@ namespace webby.Controllers
         [HttpGet]
         public ActionResult CreateComment(int pId)
         {
-            CommentModels newCom = new CommentModels();
-            newCom.PostId = pId;
+            CommentModels newCom = new CommentModels
+            {
+                PostId = pId
+            };
             ViewBag.Foo = pId;
             return View(newCom);
         }
