@@ -56,7 +56,7 @@ namespace webby.Controllers
             {
                 _postRepository.Add(post);
                 
-                return RedirectToAction("PostList");
+                return RedirectToLocal("PostList");
             }
             return View("Create");
         }
@@ -187,7 +187,7 @@ namespace webby.Controllers
             if (ModelState.IsValid)
             {
                 _postRepository.Edit(postModel);
-                return RedirectToAction("PostList");
+                return RedirectToLocal("PostList");
             }
             return View(postModel);
         }
@@ -213,7 +213,7 @@ namespace webby.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             _postRepository.Remove(id);
-            return RedirectToAction("Index");
+            return RedirectToLocal("Index");
         }
 
         protected override void Dispose(bool disposing)
@@ -225,7 +225,17 @@ namespace webby.Controllers
             base.Dispose(disposing);
         }
 
-
+        private ActionResult RedirectToLocal (string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+        }
         
 
     }
