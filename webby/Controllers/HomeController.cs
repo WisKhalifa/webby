@@ -137,6 +137,7 @@ namespace webby.Controllers
                 };
                 db.Comments.Add(_comm);
                 db.SaveChanges();
+                
             }
             return PartialView("CreateComment");
         }

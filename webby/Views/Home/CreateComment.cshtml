@@ -16,11 +16,23 @@
             </div>
             <div class="addcommentbox">
                 <div>
-                    <input type="submit" value="Add This Comment >" class="a a-default" />
+                    <input id="test" type="submit" value="Add This Comment >" class="a a-default" onclick="Update()" />
                 </div>
             </div>
         </div>
+
+        
+        
+
+        
+
+
     }
 
 }
+        <script>
+            function Update() {
+                toastr.success("Comment Added!", "Congrats!");
+            }
+        </script>
 

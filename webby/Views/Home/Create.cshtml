@@ -8,12 +8,12 @@
 <h2>Create a Post</h2>
 <hr />
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        
+
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -23,9 +23,9 @@
             </div>
         </div>
 
-        
 
-   
+
+
         <div class="form-group">
             @Html.LabelFor(model => model.PostContent, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -37,12 +37,18 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create this Post >" class="a a-default" />
+                <input type="submit" value="Create this Post >" class="a a-default" onclick="Update()" />
             </div>
         </div>
     </div>
-}
 
+    
+}
+    <script>
+        function Update() {
+            toastr.success("Post Added!", "Congrats!");
+        }
+    </script>
 
 
 @section Scripts {
